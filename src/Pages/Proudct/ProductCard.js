@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const ProductCard = ({ product }) => {
 
     const { id, title, img, price } = product;
-   
+
     const handleBuyNowClick = () => {
 
         const existingCart = JSON.parse(localStorage.getItem("cart") || "[]" );
@@ -21,6 +21,8 @@ const ProductCard = ({ product }) => {
         }
         else{ toast.error('You dont add a Tamplet multiplly ') }
 
+        window.location.reload();
+
       };
 
 
@@ -35,9 +37,7 @@ const ProductCard = ({ product }) => {
                     </h2>
                     <p className='font-bold text-pink-700'>${price}</p>
                     <div className="card-actions justify-center">
-                        <Link className=" btn btn-outline" to={`/product/${product.id}`}>
-                            View Details
-                        </Link>
+
                         <div>
                         </div>
                         <div>

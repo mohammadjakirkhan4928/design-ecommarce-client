@@ -7,43 +7,76 @@ import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 const Login = () => {
 
 
-    const { register,  formState: { errors }, handleSubmit } = useForm()
-    const {signIn,googleSignUp} = useContext(AuthContext)
-    const [loginError, setLoginError] = useState("");
+    // const { register,  formState: { errors }, handleSubmit } = useForm()
+    // const {signIn,googleSignUp} = useContext(AuthContext)
+    // const [loginError, setLoginError] = useState("");
+
+    // const handleLogin = data =>{
+    //     console.log(data);
+    //     setLoginError('');
+
+    //      signIn(data.email, data.password)
+    //      .then(result =>{
+    //         const user = result.user;
+    //         toast.success('login succesfully')
+    //         console.log(user);
+
+    //      })
+    //      .catch( error =>{
+    //         console.log(error.message)
+    //         setLoginError(error.message)
+    //      });
+    // }
+
+    // const handleGoogle = () =>{
+    //     googleSignUp()
+    //     .then(result =>{
+    //         const user = result.user;
+    //         console.log(user);
+
+    //      })
+    //      .catch( error =>{
+    //        console.log('error: ',error)
+    //      })
+    // }
+
+
+    const { signIn, googleSignUp } = useContext(AuthContext);
+
+    const { register, formState: { errors }, handleSubmit } = useForm();
+    const [loginError, setLoginError] = useState('');
     const location = useLocation();
     const navigate = useNavigate();
 
-    const from = location.state?.from?.pathname || '/';
+    const from = location.state?.from?.pathname || '/product';
 
+    const handleLogin = async (data) => {
+      console.log(data);
+      setLoginError('');
 
-    const handleLogin = data =>{
-        console.log(data);
-        setLoginError('');
+      try {
+        const result = await signIn(data.email, data.password);
+        const user = result.user;
+        toast.success('login succesfully');
+        console.log(user);
+        navigate(from, { replace: true });
+      } catch (error) {
+        console.log(error.message);
+        setLoginError(error.message);
+      }
+    };
 
-         signIn(data.email, data.password)
-         .then(result =>{
-            const user = result.user;
-            toast.success('login succesfully')
-            console.log(user);
-            navigate(from,{replace:true})
-         })
-         .catch( error =>{
-            console.log(error.message)
-            setLoginError(error.message)
-         });
-    }
+    const handleGoogle = async () => {
+      try {
+        const result = await googleSignUp();
+        const user = result.user;
+        console.log(user);
+        navigate(from, { replace: true });
+      } catch (error) {
+        console.log('error: ', error);
+      }
+    };
 
-    const handleGoogle = () =>{
-        googleSignUp()
-        .then(result =>{
-            const user = result.user;
-            console.log(user);
-            navigate(from,{replace:true})
-         })
-         .catch( error =>{
-           console.log('error: ',error)
-         })
-    }
 
     return (
         <div className='h-[800px] flex justify-center items-center'>

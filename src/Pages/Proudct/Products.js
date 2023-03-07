@@ -31,12 +31,12 @@ const Products = () => {
                         product={product}
                     ></ProductCard>)
                 }
-                {
+                {/* {
                     products.map(product => <DetailProductCard
                        key={product.id}
                        product={product}
                     ></DetailProductCard>)
-                }
+                } */}
             </div>
 
         </div>

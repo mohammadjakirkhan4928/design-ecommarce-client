@@ -38,18 +38,16 @@ const Cart = () => {
     setCart(newCart);
     localStorage.setItem("cart", JSON.stringify(newCart));
     toast.success('Succesfully Removed ')
+    window.location.reload();
   };
 
   const handleClearAll = () => {
     setCart([]);
     localStorage.removeItem("cart");
-    toast.promise(
-      {
-        loading: 'Deleting...',
-        success: <b>All Tamplet Deleted!</b>,
-        error: <b>Could not Delete </b>
-      }
-    );
+     
+    toast.success('Your Cart is Empty')
+
+
   };
 
   // const subtotal = cart.reduce((total, product) => total + product.price * product.quantity, 0);
